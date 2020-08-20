@@ -1,1 +1,7 @@
 /target/
+/.settings/
+/.classpath
+/.springBeans
+/.project
+/.gradle
+/build/
