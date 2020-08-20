@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.jrcsofthouse.exception.ExceptionReponse;
+import br.com.jrcsofthouse.exception.UnsuportedDivisionByZero;
 import br.com.jrcsofthouse.exception.UnsuportedMathOperationException;
 
 @ControllerAdvice
@@ -27,6 +28,14 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	
 	@ExceptionHandler(UnsuportedMathOperationException.class)
 	public final ResponseEntity<ExceptionReponse> handleBadRequestException(Exception ex, WebRequest request){
+		
+		ExceptionReponse exceptionResponse = new ExceptionReponse(new Date(), ex.getMessage(), request.getDescription(false));
+		
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UnsuportedDivisionByZero.class)
+	public final ResponseEntity<ExceptionReponse> handleBadRequestExceptionDivisionByZero(Exception ex, WebRequest request){
 		
 		ExceptionReponse exceptionResponse = new ExceptionReponse(new Date(), ex.getMessage(), request.getDescription(false));
 		
