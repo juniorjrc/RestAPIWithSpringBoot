@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.jrcsofthouse.data.model.Person;
 import br.com.jrcsofthouse.exception.ResourceNotFoundException;
-import br.com.jrcsofthouse.model.Person;
 import br.com.jrcsofthouse.repository.PersonRepository;
 
 @Service

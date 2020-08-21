@@ -1,4 +1,4 @@
-package br.com.jrcsofthouse.model;
+package br.com.jrcsofthouse.data.model;
 
 import java.io.Serializable;
 

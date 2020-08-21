@@ -13,34 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.jrcsofthouse.model.Person;
+import br.com.jrcsofthouse.data.vo.PersonVO;
 import br.com.jrcsofthouse.services.PersonService;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/PersonVO")
 public class PersonController {
 	
 	@Autowired
 	private PersonService services;
 	
 	@GetMapping	
-	public List<Person> findAll() {
+	public List<PersonVO> findAll() {
 		return services.findAll();
 	}
 	
 	@GetMapping("/{id}")	
-	public Person findById(@PathVariable("id") Long id) {
+	public PersonVO findById(@PathVariable("id") Long id) {
 		return services.findbyId(id);
 	}
 	
 	@PostMapping	
-	public Person create(@RequestBody Person person) {
-		return services.create(person);
+	public PersonVO create(@RequestBody PersonVO personVO) {
+		return services.create(PersonVO);
 	}
 	
 	@PutMapping	
-	public Person update(@RequestBody Person person) {
-		return services.update(person);
+	public PersonVO update(@RequestBody PersonVO personVO) {
+		return services.update(personVO);
 	}
 	
 	@DeleteMapping("/{id}")		
