@@ -17,7 +17,7 @@ import br.com.jrcsofthouse.data.vo.PersonVO;
 import br.com.jrcsofthouse.services.PersonService;
 
 @RestController
-@RequestMapping("/PersonVO")
+@RequestMapping("/person")
 public class PersonController {
 	
 	@Autowired
@@ -35,7 +35,7 @@ public class PersonController {
 	
 	@PostMapping	
 	public PersonVO create(@RequestBody PersonVO personVO) {
-		return services.create(PersonVO);
+		return services.create(personVO);
 	}
 	
 	@PutMapping	
