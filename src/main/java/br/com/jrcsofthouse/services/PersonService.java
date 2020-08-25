@@ -39,7 +39,7 @@ public class PersonService {
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
 		
 		entity.setFirstName(person.getFirstName());
-		entity.setLastName(person.getFirstName());
+		entity.setLastName(person.getLastName());
 		entity.setAddress(person.getAddress());
 		entity.setGender(person.getGender());
 		entity.setPhoneNumber(person.getPhoneNumber());
