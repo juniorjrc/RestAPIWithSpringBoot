@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.jrcsofthouse.converter.DozerConverter;
+import br.com.jrcsofthouse.converter.custom.PersonConverter;
 import br.com.jrcsofthouse.data.model.Person;
 import br.com.jrcsofthouse.data.vo.PersonVO;
 import br.com.jrcsofthouse.data.vo.v2.PersonVOV2;
@@ -17,6 +18,9 @@ public class PersonService {
 	
 	@Autowired
 	PersonRepository repository;
+	
+	@Autowired
+	PersonConverter converter;
 	
 	public List<PersonVO> findAll(){
 		return DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
@@ -36,10 +40,10 @@ public class PersonService {
 	}
 	
 	public PersonVOV2 createV2(PersonVOV2 person) {
-		var entity = DozerConverter.parseObject(person, Person.class);
-		var vo = DozerConverter.parseObject(repository.save(entity), PersonVOV2.class);
+		var entity = converter.convertVOToEntity(person);
+		var vo = converter.convertEntityToVO(repository.save(entity));
 		return vo;
-	}
+	} 
 	
 	public PersonVO update(PersonVO person) {
 		var entity = repository.findById(person.getId())
