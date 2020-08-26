@@ -34,3 +34,22 @@ Repositório destinado à aplicação dos aprendizados do curso de criação de 
 4. Criar o VO
 5. Criar o service
 6. Criar o controller com suporte ao Content Negotiation, HATEOAS e swagger
+
+## PASSOS PARA CRIAR UM ENVIROMENT NO POST PARA ARMAZENAMENTO AUTOMÁTICO DO TOKEN ##
+1. Clicar em "Manage enviroments" no canto superior direito do postman
+2. Clicar em "ADD"
+3. Dar um nome ao enviroment
+4. Adicionar nos campos:
+	- VARIABLE = host 			| INITIAL VALUE = http://localhost:8080
+	- VARIABLE = user 			| INITIAL VALUE = admincontractz
+	- VARIABLE = password 		| INITIAL VALUE = admin123
+	- VARIABLE = bearer_token	| INITIAL VALUE = 
+5. Pronto, ambiente criado.
+6. Após criação do ambiente e setagem das variavéis no Body da chamada, na aba "Tests" da chamada do token, inserir os dados abaixo:
+	```
+		//Verifica se a requisição encontra-se no range de sucesso!!
+		if(responseCode.code >= 200 && responseCode.code <= 299){
+		    var jsonData = JSON.parse(responseBody);
+		    postman.setEnvironmentVariable('bearer_token', jsonData.token);
+		}
+	```
