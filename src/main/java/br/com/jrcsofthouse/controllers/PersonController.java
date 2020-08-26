@@ -21,6 +21,7 @@ import br.com.jrcsofthouse.services.PersonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+//@CrossOrigin //Forma de usar o CORS
 @Api(value="Person Endpoint", description="Description for person", tags= {"PersonEndpoint"})
 @RestController
 @RequestMapping("/api/person/v1")
@@ -39,6 +40,7 @@ public class PersonController {
 		return persons;
 	}
 	
+	//@CrossOrigin(origins = {"http://localhost:8080", "http://www.jrcsoft.com.br"})
 	@ApiOperation(value="Encontrar pessoa por id")
 	@GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})	
 	public PersonVO findById(@PathVariable("id") Long id) {
