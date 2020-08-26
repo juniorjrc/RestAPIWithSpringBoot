@@ -27,7 +27,7 @@ public class User implements UserDetails, Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_permission")
+	@Column(name = "id_user")
 	private Long id;
 	
 	@Column(name = "user_name", unique = true)
