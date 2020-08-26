@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jrcsofthouse.data.vo.v1.BookVO;
 import br.com.jrcsofthouse.services.BookService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(value="Book Endpoint", description="Description for book", tags= {"BookEndpoint"})
 @RestController
 @RequestMapping("/api/book/v1")
 public class BookController {
@@ -26,6 +29,7 @@ public class BookController {
 	@Autowired
 	BookService services;
 	
+	@ApiOperation(value="Encontrar todos os livros")
 	@GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})	
 	public List<BookVO> findAll() {
 		List<BookVO> books = services.findAll();
@@ -35,6 +39,7 @@ public class BookController {
 		return books;
 	}
 	
+	@ApiOperation(value="Encontrar livro por id")
 	@GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
 	public BookVO findById(@PathVariable("id") Long id) {
 		BookVO bookVO = services.findById(id);
@@ -43,6 +48,7 @@ public class BookController {
 		return bookVO;
 	}
 	
+	@ApiOperation(value="Criar livro")
 	@PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
 			consumes = {"application/json", "application/xml", "application/x-yaml"})	
 	public BookVO create(@RequestBody BookVO book) {
@@ -52,6 +58,7 @@ public class BookController {
 		return bookVO;
 	}
 	
+	@ApiOperation(value="Atualizar livro")
 	@PutMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
 			consumes = {"application/json", "application/xml", "application/x-yaml"})
 	public BookVO update(@RequestBody BookVO book) {
@@ -61,6 +68,7 @@ public class BookController {
 		return bookVO;
 	}
 	
+	@ApiOperation(value="Deletar livro")
 	@DeleteMapping("/{id}")		
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		services.delete(id);
