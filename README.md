@@ -26,3 +26,11 @@ Repositório destinado à aplicação dos aprendizados do curso de criação de 
 </dependency>
 ```
 6. Pronto, o driver esta configurado.
+
+## PASSOS DO DESAFIO PROPOSTO NA AULA 104 - SESSÃO 15 ##
+1. Criar as migrations referente à nova entidade
+2. Criar a entidade
+3. Criar o repository
+4. Criar o VO
+5. Criar o service
+6. Criar o controller com suporte ao Content Negotiation, HATEOAS e swagger
