@@ -3,8 +3,6 @@ package br.com.jrcsofthouse.controllers;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.jrcsofthouse.data.vo.v1.BookVO;
-import br.com.jrcsofthouse.data.vo.v1.PersonVO;
 import br.com.jrcsofthouse.services.BookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,13 +36,15 @@ public class BookController {
 	@Autowired
 	BookService services;
 	
+	@Autowired
+	private PagedResourcesAssembler<BookVO> assembler;
+	
 	@ApiOperation(value="Encontrar todos os livros")
 	@GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})	
-	public ResponseEntity<PagedResources<BookVO>> findAll(
+	public ResponseEntity<?> findAll(
 			@RequestParam(value="page", defaultValue = "0") int page,
 			@RequestParam(value="limit", defaultValue = "12") int limit,
-			@RequestParam(value="direction", defaultValue = "asc") String direction,
-			PagedResourcesAssembler assembler) {
+			@RequestParam(value="direction", defaultValue = "asc") String direction) {
 		
 		// OPERADOR TERNÁRIO -> VALIDAÇÃO ? VALOR SE VERDADEIRO : VALOR SE FALSO
 		var sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
@@ -56,7 +55,9 @@ public class BookController {
 		books
 		.stream().forEach(b -> b.add(
 				linkTo(methodOn(BookController.class).findById(b.getKey())).withSelfRel()));
-		return new ResponseEntity<>(assembler.toResource(books), HttpStatus.OK);
+		
+		PagedResources<?> resources = assembler.toResource(books);
+		return new ResponseEntity<>(resources, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value="Encontrar livro por id")
