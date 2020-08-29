@@ -1,5 +1,9 @@
 package br.com.jrcsofthouse.controllers;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +34,14 @@ public class FileController {
 				.toUriString();
 		
 		return new UploadFileResponseVO(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+	}
+	
+	@PostMapping("/uploadMultipleFiles")
+	public List<UploadFileResponseVO> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+		return Arrays.asList(files)
+				.stream()
+				.map(file -> uploadFile(file))
+				.collect(Collectors.toList());
 	}
 
 }
