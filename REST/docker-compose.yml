@@ -12,7 +12,7 @@ services:
   #   networks:
   #     - udemy-network
   rest-with-spring-boot-udemy:
-    image: leandrocgsi/rest-with-spring-boot-udemy
+    image: juniorjrc/rest_with_springboot
     restart: always
     build: ./RestAPIWithSpringBoot
     working_dir: /RestAPIWithSpringBoot
