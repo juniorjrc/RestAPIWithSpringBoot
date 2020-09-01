@@ -1,0 +1,36 @@
+version: '3.4'
+services:
+  # db:
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "1400:1433"
+  #   environment:
+  #     ACCEPT_EULA: Y
+  #     SA_PASSWORD: GZVjGgOs3Z6D
+  #   networks:
+  #     - udemy-network
+  rest-with-spring-boot-udemy:
+    image: leandrocgsi/rest-with-spring-boot-udemy
+    restart: always
+    build: ./RestAPIWithSpringBoot
+    working_dir: /RestAPIWithSpringBoot
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING_BOOT_ENVIRONMENT: Production
+    volumes:
+      - ./RestAPIWithSpringBoot:/RestAPIWithSpringBoot
+      - ~/.m2:/root/.m2
+    ports:
+      - "8080:8080"
+    command: mvn clean spring-boot:run
+    # links:
+    #   - db
+    # depends_on:
+    #   - db
+    networks:
+      - udemy-network
+networks:
+    udemy-network:
+        driver: bridge
