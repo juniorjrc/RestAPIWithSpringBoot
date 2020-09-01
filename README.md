@@ -53,3 +53,34 @@ Repositório destinado à aplicação dos aprendizados do curso de criação de 
 		    postman.setEnvironmentVariable('bearer_token', jsonData.token);
 		}
 	```
+
+## INTEGRANDO COM O DOCKER ##
+1. Inserir no arquivo docker-compose.yml uma pasta acima da aplicação, as configurações:
+```
+version: '3.4'
+services:
+  rest-with-spring-boot-udemy:
+    image: juniorjrc/rest_with_springboot
+    restart: always
+    build: ./RestAPIWithSpringBoot
+    working_dir: /RestAPIWithSpringBoot
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING_BOOT_ENVIRONMENT: Production
+    volumes:
+      - ./RestAPIWithSpringBoot:/RestAPIWithSpringBoot
+      - ~/.m2:/root/.m2
+    ports:
+      - "8080:8080"
+    command: mvn clean spring-boot:run
+    networks:
+      - udemy-network
+networks:
+    udemy-network:
+        driver: bridge
+```
+2. O mesmo já irá montar a imagem do spring
+3. Para inserir as imagens no docker hub, é necéssário mudar o nome da imagem conforme a escola:
+	1. docker image ls
+	2. docker image tag [ID_DA_IMAGEM] [SEU_REPOSITORIO]/[NOME_DA_IMAGEM]
+	3. docker push [SEU_REPOSITORIO]/[NOME_DA_IMAGEM]
